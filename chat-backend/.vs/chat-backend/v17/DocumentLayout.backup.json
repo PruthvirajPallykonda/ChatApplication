@@ -1,0 +1,99 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Codes\\Chat Application\\chat-backend\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{BB0319E3-2EB3-4D74-A3F5-D127B09E4218}|chat-backend\\chat-backend.csproj|d:\\codes\\chat application\\chat-backend\\chat-backend\\controllers\\chatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BB0319E3-2EB3-4D74-A3F5-D127B09E4218}|chat-backend\\chat-backend.csproj|solutionrelative:chat-backend\\controllers\\chatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BB0319E3-2EB3-4D74-A3F5-D127B09E4218}|chat-backend\\chat-backend.csproj|d:\\codes\\chat application\\chat-backend\\chat-backend\\dto\u0027s\\chat\\createchatroomrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BB0319E3-2EB3-4D74-A3F5-D127B09E4218}|chat-backend\\chat-backend.csproj|solutionrelative:chat-backend\\dto\u0027s\\chat\\createchatroomrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BB0319E3-2EB3-4D74-A3F5-D127B09E4218}|chat-backend\\chat-backend.csproj|d:\\codes\\chat application\\chat-backend\\chat-backend\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BB0319E3-2EB3-4D74-A3F5-D127B09E4218}|chat-backend\\chat-backend.csproj|solutionrelative:chat-backend\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BB0319E3-2EB3-4D74-A3F5-D127B09E4218}|chat-backend\\chat-backend.csproj|d:\\codes\\chat application\\chat-backend\\chat-backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BB0319E3-2EB3-4D74-A3F5-D127B09E4218}|chat-backend\\chat-backend.csproj|solutionrelative:chat-backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 314,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CreateChatRoomRequest.cs",
+              "DocumentMoniker": "D:\\Codes\\Chat Application\\chat-backend\\chat-backend\\DTO\u0027s\\Chat\\CreateChatRoomRequest.cs",
+              "RelativeDocumentMoniker": "chat-backend\\DTO\u0027s\\Chat\\CreateChatRoomRequest.cs",
+              "ToolTip": "D:\\Codes\\Chat Application\\chat-backend\\chat-backend\\DTO\u0027s\\Chat\\CreateChatRoomRequest.cs",
+              "RelativeToolTip": "chat-backend\\DTO\u0027s\\Chat\\CreateChatRoomRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-07T14:38:36.399Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "D:\\Codes\\Chat Application\\chat-backend\\chat-backend\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "chat-backend\\Controllers\\UserController.cs",
+              "ToolTip": "D:\\Codes\\Chat Application\\chat-backend\\chat-backend\\Controllers\\UserController.cs",
+              "RelativeToolTip": "chat-backend\\Controllers\\UserController.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAgwCgAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-07T13:18:04.029Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ChatController.cs",
+              "DocumentMoniker": "D:\\Codes\\Chat Application\\chat-backend\\chat-backend\\Controllers\\ChatController.cs",
+              "RelativeDocumentMoniker": "chat-backend\\Controllers\\ChatController.cs",
+              "ToolTip": "D:\\Codes\\Chat Application\\chat-backend\\chat-backend\\Controllers\\ChatController.cs",
+              "RelativeToolTip": "chat-backend\\Controllers\\ChatController.cs",
+              "ViewState": "AgIAAAQAAAAALzMzMzMbwFgAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-07T12:46:11.293Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Codes\\Chat Application\\chat-backend\\chat-backend\\Program.cs",
+              "RelativeDocumentMoniker": "chat-backend\\Program.cs",
+              "ToolTip": "D:\\Codes\\Chat Application\\chat-backend\\chat-backend\\Program.cs",
+              "RelativeToolTip": "chat-backend\\Program.cs",
+              "ViewState": "AgIAADUAAACgz8zMzMwnwDwAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-07T08:11:48.622Z"
+            }
+          ]
+        },
+        {
+          "DockedHeight": 41,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

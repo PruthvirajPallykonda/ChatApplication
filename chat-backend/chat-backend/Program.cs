@@ -6,7 +6,6 @@ using System.Text;
 using chat_backend.Services.Interfaces;
 using chat_backend.Services.Implementations;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // DbContext
@@ -38,30 +37,30 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddScoped<IAuthService, AuthService>();
 
-
 // MVC + Swagger
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
-var corsPolicyName = "Frontend";
+// ---- CORS CONFIG ----
+const string corsPolicyName = "Frontend";
 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: corsPolicyName, policy =>
     {
-        policy.WithOrigins("http://localhost:5173", "https://pruthvirajpallykonda.github.io")
-              .AllowAnyHeader()
-              .AllowAnyMethod()
-              .AllowCredentials();
+        policy.WithOrigins(
+                "http://localhost:5173",
+                "https://pruthvirajpallykonda.github.io"
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
     });
 });
 
-
+// ---- BUILD APP ----
 var app = builder.Build();
-app.UseCors("AllowFrontend");
-
 
 // Pipeline
 if (app.Environment.IsDevelopment())
@@ -70,14 +69,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
-
-
 app.UseHttpsRedirection();
 
-//app.UseRouting();
-
-
+// CORS must be before auth/authorization and called once
 app.UseCors(corsPolicyName);
 
 app.UseStaticFiles();

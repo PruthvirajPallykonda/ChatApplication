@@ -11,6 +11,8 @@ namespace chat_backend.Data
         public DbSet<User> Users => Set<User>();
         public DbSet<ChatRoom> ChatRooms => Set<ChatRoom>();
         public DbSet<Message> Messages => Set<Message>();
+        public DbSet<MessageReaction> MessageReactions { get; set; } = null!;
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -29,6 +31,9 @@ namespace chat_backend.Data
             modelBuilder.Entity<ChatRoom>(entity =>
             {
                 entity.HasKey(r => r.Id);
+
+                entity.Property(r => r.Name)
+                      .HasMaxLength(100);
 
                 entity.HasOne(r => r.User1)
                       .WithMany(u => u.ChatRoomsAsUser1)
@@ -50,6 +55,10 @@ namespace chat_backend.Data
                       .IsRequired()
                       .HasMaxLength(1000);
 
+                entity.Property(m => m.FileUrl).HasMaxLength(255);
+                entity.Property(m => m.FileName).HasMaxLength(255);
+                entity.Property(m => m.FileType).HasMaxLength(100);
+
                 entity.HasOne(m => m.Room)
                       .WithMany(r => r.Messages)
                       .HasForeignKey(m => m.RoomId);
@@ -58,9 +67,27 @@ namespace chat_backend.Data
                       .WithMany(u => u.Messages)
                       .HasForeignKey(m => m.SenderId)
                       .OnDelete(DeleteBehavior.Restrict);
+
+                entity.Property(m => m.Status)
+                      .IsRequired()
+                      .HasMaxLength(20);
             });
 
 
+            modelBuilder.Entity<MessageReaction>()
+           .HasIndex(r => new { r.MessageId, r.UserId, r.Emoji })
+           .IsUnique(); // one reaction type per user per message
+
+            modelBuilder.Entity<MessageReaction>()
+                .HasOne(r => r.Message)
+                .WithMany(m => m.Reactions)
+                .HasForeignKey(r => r.MessageId);
+
+            modelBuilder.Entity<MessageReaction>()
+                .HasOne(r => r.User)
+                .WithMany()
+                .HasForeignKey(r => r.UserId);
+
         }
-    }
+}
 }

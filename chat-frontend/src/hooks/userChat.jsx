@@ -1,5 +1,19 @@
+// src/hooks/userChat.js
 import { useEffect, useState } from "react";
 import client from "../api/client";
+
+const API_BASE = "http://localhost:5252";
+
+function normalizeMessages(raw) {
+  return (raw || []).map((m) => ({
+    ...m,
+    fileUrl: m.fileUrl
+      ? m.fileUrl.startsWith("http")
+        ? m.fileUrl
+        : `${API_BASE}${m.fileUrl}`
+      : null,
+  }));
+}
 
 function useChat(roomId) {
   const [messages, setMessages] = useState([]);
@@ -7,6 +21,7 @@ function useChat(roomId) {
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
+  const [roomInfo, setRoomInfo] = useState(null);
 
   const stored = localStorage.getItem("chatUser");
   const currentUser = stored ? JSON.parse(stored) : null;
@@ -19,7 +34,7 @@ function useChat(roomId) {
       const res = await client.get(
         `/api/chat/get/messages/usingroomid/${roomId}`
       );
-      setMessages(res.data);
+      setMessages(normalizeMessages(res.data));
     } catch {
       setError("Failed to load messages.");
     } finally {
@@ -27,9 +42,21 @@ function useChat(roomId) {
     }
   };
 
+  const fetchRoomInfo = async () => {
+    try {
+      const res = await client.get("/api/chat/getall/chatrooms");
+      const allRooms = res.data || [];
+      const room = allRooms.find((r) => r.id === Number(roomId));
+      if (room) setRoomInfo(room);
+    } catch {
+      // ignore
+    }
+  };
+
   useEffect(() => {
     if (!roomId) return;
     fetchMessages();
+    fetchRoomInfo();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [roomId]);
 
@@ -52,12 +79,15 @@ function useChat(roomId) {
           id: res.data.id,
           roomId: Number(roomId),
           senderId: currentUserId,
+          senderName: currentUser?.username,
           text,
           sentAt: new Date().toISOString(),
+          status: "sent",
+          fileUrl: null,
         },
       ]);
 
-      setText(""); // clear input after send
+      setText("");
     } catch {
       setError("Failed to send message.");
     } finally {
@@ -66,14 +96,18 @@ function useChat(roomId) {
   };
 
   return {
+    currentUser,
     currentUserId,
+    roomInfo,
     messages,
+    setMessages,
     text,
     setText,
     loading,
     sending,
     error,
     handleSend,
+    fetchRoomInfo,
   };
 }
 

@@ -1,72 +1,101 @@
-import axios from 'axios'
-import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+// src/pages/Chat/ChatRoomsPage.jsx
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import client from "../../api/client";
 
 function ChatRoomsPage() {
+  const [rooms, setRooms] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-    const navigate = useNavigate();
-    const [rooms, setRooms] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+  const stored = localStorage.getItem("chatUser");
+  const currentUser = stored ? JSON.parse(stored) : null;
 
-    useEffect(() => {
-        const fetchRooms = async () => {
-            setError(null);
-            setLoading(true);
-            try {
-                const response = await client.get('/api/chat/getall/chatrooms');
-                setRooms(response.data || [] );
-            }
-            catch (err) {
-                setError(err.message || 'Something went wrong');
-            }
-            finally {
-                setLoading(false);
-        }
-    };
-        fetchRooms();
-}, []);
+  const navigate = useNavigate();
 
-    const handleOpenRoom = (roomId) => {
-        navigate(`/chat/${roomId}`);
+  const fetchRooms = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      const res = await client.get("/api/chat/getall/chatrooms");
+      setRooms(res.data || []);
+    } catch {
+      setError("Failed to load rooms.");
+    } finally {
+      setLoading(false);
     }
+  };
+
+  useEffect(() => {
+    fetchRooms();
+  }, []);
+
+  const handleOpenRoom = (roomId) => {
+    navigate(`/chat/${roomId}`);
+  };
+
+  const getRoomSubtitle = (room) => {
+    if (!currentUser) return `Room #${room.id}`;
+    const meId = currentUser.userId;
+    const otherName =
+      room.user1Id === meId ? room.user2Name : room.user1Name;
+    return `Room #${room.id} · ${otherName}`;
+  };
 
   return (
-    <div className="min-h-screen bg-slate-900 text-slate-100 flex">
-        <aside className='max-w-md mx-auto md:w-80 md:mx-0 bg-slate-800 border-r border-slate-700 p-4'>
-        <h1 className="text-xl font-semibold mb-4">Chat Rooms</h1>
-        {
-            loading && (
-                <p className='text-sm text-slate-400'>Loading rooms...</p>
-            )
-        }
-        {
-            error && (
-            <div className="mb-3 rounded-lg bg-red-500/10 border border-red-500 text-sm px-3 py-2">{error}</div>
-            )
-        }
-        {
-            !loading && !error && rooms.length === 0 && (
-                <p className='text-sm text-slate-400'>No chat rooms found.</p>
-            )
-        }
-        <ul className='space-y-2 mt-2'>
-        {
-            rooms.map((room) => (
-                <li key={room.id} onClick={()=>handleOpenRoom(room.id)} className="rounded-lg bg-slate-700 hover:bg-slate-600 cursor-pointer px-3 py-2 text-sm flex items-center justify-between">
-                    <div className='font-medium'>Room #{room.id}</div>
-                    <div className='text-xs text-slate-300'>user1Id: {room.user1Id} - user2Id: {room.user2Id}</div>
-                    <span className='text-xs text-indigo-300'>Open</span>
-                </li>
-            ))}
-        </ul>
-        </aside>
-        <main className='hidden md:flex flex-1 items-center justify-center'>
-            <p className='text-slate-400 text-sm'>Select a room on the left to open the chat</p>
-        </main>
+    <div className="flex-1 flex overflow-hidden">
+      {/* Left: rooms list */}
+      <aside className="w-100 border-r border-slate-800 bg-slate-900 flex flex-col">
+        <header className="h-14 flex items-center px-4 border-b border-slate-800">
+          <h1 className="text-lg font-semibold">Chat Rooms</h1>
+        </header>
+
+        <div className="flex-1 overflow-y-auto p-3 space-y-2">
+          {loading && (
+            <p className="text-sm text-slate-400">Loading rooms...</p>
+          )}
+          {error && <p className="text-sm text-red-400">{error}</p>}
+
+          {!loading && !error && rooms.length === 0 && (
+            <p className="text-sm text-slate-400">
+              No rooms yet. Start a conversation from Users page.
+            </p>
+          )}
+
+          {rooms.map((room) => (
+            <div
+              key={room.id}
+              className="w-full flex items-center justify-between px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-left"
+            >
+              <div className="flex flex-col">
+                <span className="font-medium">
+                  {room.name || getRoomSubtitle(room)}
+                </span>
+                <span className="text-xs text-slate-400">
+                  {room.name ? getRoomSubtitle(room) : ""}
+                </span>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => handleOpenRoom(room.id)}
+                className="text-xs px-2 py-1 rounded bg-indigo-600 hover:bg-indigo-500"
+              >
+                Open
+              </button>
+            </div>
+          ))}
+        </div>
+      </aside>
+
+      {/* Right: placeholder (chat content lives in /chat/:roomId page) */}
+      <section className="flex-1 flex items-center justify-center">
+        <p className="text-sm text-slate-400">
+          Select a room on the left to open the chat.
+        </p>
+      </section>
     </div>
-  )
+  );
 }
 
-export default ChatRoomsPage
+export default ChatRoomsPage;

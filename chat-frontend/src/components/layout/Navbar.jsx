@@ -25,6 +25,11 @@ function Navbar() {
         <Link to="/users/search" className="hover:text-white">
         Search
         </Link>
+        <Link
+        to="/contacts"
+        className="text-sm text-slate-300 hover:text-white mr-4">
+        Contacts
+        </Link>
     </div>
     </div>
     <div className="flex items-center gap-3 text-sm">

@@ -2,6 +2,7 @@ import axios from "axios";
 
 const client = axios.create({
     baseURL:"https://localhost:7111",
+    withCredentials: true,
 });
 
 // Add Authorization header if token exists

@@ -51,14 +51,17 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: corsPolicyName, policy =>
     {
-        policy.WithOrigins("http://localhost:5173")
+        policy.WithOrigins("http://localhost:5173", "https://pruthvirajpallykonda.github.io")
               .AllowAnyHeader()
-              .AllowAnyMethod();
+              .AllowAnyMethod()
+              .AllowCredentials();
     });
 });
 
 
 var app = builder.Build();
+app.UseCors("AllowFrontend");
+
 
 // Pipeline
 if (app.Environment.IsDevelopment())

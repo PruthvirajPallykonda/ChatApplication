@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const client = axios.create({
-    baseURL:"https://localhost:7111",
+    baseURL:"http://EC2_PUBLIC_DNS:5000/api",
     withCredentials: true,
 });
 

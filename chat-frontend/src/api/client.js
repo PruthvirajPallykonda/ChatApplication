@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const client = axios.create({
-    baseURL:"http://EC2_PUBLIC_DNS:5000/api",
+    baseURL:"http://ec2-100-31-134-207.compute-1.amazonaws.com:5000/api",
     withCredentials: true,
 });
 

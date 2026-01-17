@@ -1,16 +1,14 @@
-// src/hooks/userChat.js
 import { useEffect, useState } from "react";
 import client from "../api/client";
 
-const API_BASE = "http://localhost:5252";
-
 function normalizeMessages(raw) {
+  const apiBase = import.meta.env.VITE_API_BASE_URL || "https://chatapplication-production-48d0.up.railway.app";
   return (raw || []).map((m) => ({
     ...m,
     fileUrl: m.fileUrl
       ? m.fileUrl.startsWith("http")
         ? m.fileUrl
-        : `${API_BASE}${m.fileUrl}`
+        : `${apiBase}${m.fileUrl}`
       : null,
   }));
 }
@@ -31,9 +29,7 @@ function useChat(roomId) {
     setLoading(true);
     setError("");
     try {
-      const res = await client.get(
-        `/api/chat/get/messages/usingroomid/${roomId}`
-      );
+      const res = await client.get(`/api/chat/get/messages/usingroomid/${roomId}`);
       setMessages(normalizeMessages(res.data));
     } catch {
       setError("Failed to load messages.");

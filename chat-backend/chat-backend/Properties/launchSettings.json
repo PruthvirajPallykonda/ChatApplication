@@ -36,6 +36,16 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
+    },
+    "Railway": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": false,
+      "applicationUrl": "http://0.0.0.0:8080",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production",
+        "PORT": "8080"
+      }
     }
   }
 }

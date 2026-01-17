@@ -1,12 +1,9 @@
-// src/pages/Chat/ChatRoomPage.jsx
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import useChat from "../../hooks/userChat";
 import MessageList from "../../components/chat/MessageList";
 import MessageInput from "../../components/chat/MessageInput";
 import client from "../../api/client";
-
-const API_BASE = "http://localhost:5252";
 
 function ChatRoomPage() {
   const { roomId } = useParams();
@@ -28,7 +25,6 @@ function ChatRoomPage() {
 
   const [editingName, setEditingName] = useState(false);
   const [newName, setNewName] = useState("");
-
   const [editingMessageId, setEditingMessageId] = useState(null);
 
   const myMessages = messages.filter((m) => m.senderId === currentUserId);
@@ -54,7 +50,6 @@ function ChatRoomPage() {
 
   useEffect(() => {
     setNewName(headerTitle);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [roomId, roomInfo]);
 
   const handleStartEdit = () => {
@@ -99,9 +94,11 @@ function ChatRoomPage() {
       const res = await client.post("/api/chat/sendfile", formData);
       const { id, fileUrl, fileName, fileType } = res.data;
 
+      // Fixed: Use same dynamic baseURL as userChat.js
+      const apiBase = import.meta.env.VITE_API_BASE_URL || "https://chatapplication-production-48d0.up.railway.app";
       const fullUrl = fileUrl.startsWith("http")
         ? fileUrl
-        : `${API_BASE}${fileUrl}`;
+        : `${apiBase}${fileUrl}`;
 
       setMessages((prev) => [
         ...prev,

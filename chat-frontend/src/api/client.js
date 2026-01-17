@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const client = axios.create({
-    baseURL:"http://ec2-100-31-134-207.compute-1.amazonaws.com:5000/api",
+    baseURL:"https://chatapplication-production-48d0.up.railway.app/api",
     withCredentials: true,
 });
 

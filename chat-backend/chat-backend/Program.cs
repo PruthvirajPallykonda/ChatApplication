@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // DbContext
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(
+    options.UseNpgsql(
         builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // JWT settings
@@ -21,6 +21,8 @@ builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
+        options.RequireHttpsMetadata = false;
+        options.SaveToken = true;
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
@@ -29,7 +31,7 @@ builder.Services
             ValidateIssuerSigningKey = true,
             ValidIssuer = jwtSettings["Issuer"],
             ValidAudience = jwtSettings["Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(key)
+            IssuerSigningKey = new SymmetricSecurityKey(key),
         };
     });
 
@@ -54,8 +56,8 @@ builder.Services.AddCors(options =>
                 "https://pruthvirajpallykonda.github.io"
             )
             .AllowAnyHeader()
-            .AllowAnyMethod()
-            .AllowCredentials();
+            .AllowAnyMethod();
+            
     });
 });
 

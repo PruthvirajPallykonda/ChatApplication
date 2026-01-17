@@ -2,9 +2,9 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using chat_backend.Data;
 
 #nullable disable
@@ -12,8 +12,8 @@ using chat_backend.Data;
 namespace chat_backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251220172728_AddMessageStatus")]
-    partial class AddMessageStatus
+    [Migration("20260117183446_InitPostgres")]
+    partial class InitPostgres
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,26 +21,30 @@ namespace chat_backend.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "9.0.0")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("chat_backend.Entities.ChatRoom", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<int>("User1Id")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("User2Id")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -55,28 +59,40 @@ namespace chat_backend.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("FileName")
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<string>("FileType")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("FileUrl")
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
 
                     b.Property<int>("RoomId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("SenderId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("SentAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("character varying(20)");
 
                     b.Property<string>("Text")
                         .IsRequired()
                         .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                        .HasColumnType("character varying(1000)");
 
                     b.HasKey("Id");
 
@@ -87,34 +103,65 @@ namespace chat_backend.Migrations
                     b.ToTable("Messages");
                 });
 
+            modelBuilder.Entity("chat_backend.Entities.MessageReaction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Emoji")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("MessageId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("MessageId", "UserId", "Emoji")
+                        .IsUnique();
+
+                    b.ToTable("MessageReactions");
+                });
+
             modelBuilder.Entity("chat_backend.Entities.User", b =>
                 {
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("UserId"));
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("PasswordSalt")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasColumnType("character varying(10)");
 
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("character varying(50)");
 
                     b.HasKey("UserId");
 
@@ -162,9 +209,33 @@ namespace chat_backend.Migrations
                     b.Navigation("Sender");
                 });
 
+            modelBuilder.Entity("chat_backend.Entities.MessageReaction", b =>
+                {
+                    b.HasOne("chat_backend.Entities.Message", "Message")
+                        .WithMany("Reactions")
+                        .HasForeignKey("MessageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("chat_backend.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Message");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("chat_backend.Entities.ChatRoom", b =>
                 {
                     b.Navigation("Messages");
+                });
+
+            modelBuilder.Entity("chat_backend.Entities.Message", b =>
+                {
+                    b.Navigation("Reactions");
                 });
 
             modelBuilder.Entity("chat_backend.Entities.User", b =>

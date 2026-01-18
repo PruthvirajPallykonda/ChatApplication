@@ -29,7 +29,7 @@ function useChat(roomId) {
     setLoading(true);
     setError("");
     try {
-      const res = await client.get(`/api/chat/get/messages/usingroomid/${roomId}`);
+      const res = await client.get(`/chat/get/messages/usingroomid/${roomId}`);
       setMessages(normalizeMessages(res.data));
     } catch {
       setError("Failed to load messages.");
@@ -40,7 +40,7 @@ function useChat(roomId) {
 
   const fetchRoomInfo = async () => {
     try {
-      const res = await client.get("/api/chat/getall/chatrooms");
+      const res = await client.get("/chat/getall/chatrooms");
       const allRooms = res.data || [];
       const room = allRooms.find((r) => r.id === Number(roomId));
       if (room) setRoomInfo(room);
@@ -63,7 +63,7 @@ function useChat(roomId) {
     setError("");
 
     try {
-      const res = await client.post("/api/chat/sendmessage", {
+      const res = await client.post("/chat/sendmessage", {
         roomId: Number(roomId),
         senderId: currentUserId,
         text,

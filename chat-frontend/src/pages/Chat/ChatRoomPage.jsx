@@ -59,7 +59,7 @@ function ChatRoomPage() {
 
   const handleSaveName = async () => {
     try {
-      await client.put(`/api/chat/${roomId}/name`, { name: newName });
+      await client.put(`/chat/${roomId}/name`, { name: newName });
       setEditingName(false);
       await fetchRoomInfo();
     } catch {
@@ -76,7 +76,7 @@ function ChatRoomPage() {
     if (!window.confirm("Delete this message?")) return;
 
     try {
-      await client.delete(`/api/chat/messages/${msg.id}`);
+      await client.delete(`/chat/messages/${msg.id}`);
       setMessages((prev) => prev.filter((m) => m.id !== msg.id));
     } catch {
       alert("Failed to delete message");
@@ -91,7 +91,7 @@ function ChatRoomPage() {
     formData.append("SenderId", currentUserId);
 
     try {
-      const res = await client.post("/api/chat/sendfile", formData);
+      const res = await client.post("/chat/sendfile", formData);
       const { id, fileUrl, fileName, fileType } = res.data;
 
       // Fixed: Use same dynamic baseURL as userChat.js
@@ -125,7 +125,7 @@ function ChatRoomPage() {
 
     if (editingMessageId) {
       try {
-        await client.put(`/api/chat/messages/${editingMessageId}`, {
+        await client.put(`/chat/messages/${editingMessageId}`, {
           text: text.trim(),
         });
 

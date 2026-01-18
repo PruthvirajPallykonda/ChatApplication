@@ -1,11 +1,14 @@
 import axios from "axios";
 
+const API_BASE =
+  import.meta.env.VITE_API_BASE_URL ||
+  "https://chatapplication-production-48d0.up.railway.app";
+
 const client = axios.create({
-    baseURL:"https://chatapplication-production-48d0.up.railway.app/api",
-    withCredentials: true,
+  baseURL: `${API_BASE}/api`,
+  withCredentials: true,
 });
 
-// Add Authorization header if token exists
 client.interceptors.request.use((config) => {
   const stored = localStorage.getItem("chatUser");
   if (stored) {

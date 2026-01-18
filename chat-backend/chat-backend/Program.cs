@@ -52,7 +52,8 @@ builder.Services.AddCors(options =>
         policy
             .WithOrigins(
                 "http://localhost:5173",
-                "https://pruthvirajpallykonda.github.io"
+                "https://pruthvirajpallykonda.github.io",
+                "https://chatapplication-production-48d0.up.railway.app"
             )
             .AllowAnyHeader()
             .AllowAnyMethod()
@@ -70,7 +71,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+if (!app.Environment.IsProduction())
+{
+    app.UseHttpsRedirection();
+}
+
+//app.UseHttpsRedirection();
 
 // VERY IMPORTANT: CORS must be here
 app.UseCors(corsPolicyName);
@@ -79,4 +85,10 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+var port = Environment.GetEnvironmentVariable("PORT");
+if (!string.IsNullOrEmpty(port))
+{
+    app.Urls.Add($"http://0.0.0.0:{port}");
+}
+
 app.Run();

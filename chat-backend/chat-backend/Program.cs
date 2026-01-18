@@ -51,7 +51,7 @@ builder.Services.AddCors(options =>
     {
         policy
             .WithOrigins(
-                "http://localhost:5173",
+                
                 "https://pruthvirajpallykonda.github.io",
                 "https://chatapplication-production-48d0.up.railway.app"
             )

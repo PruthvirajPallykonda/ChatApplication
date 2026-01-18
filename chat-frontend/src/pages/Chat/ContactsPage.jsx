@@ -54,14 +54,14 @@ function ContactsPage() {
   };
 
   return (
-    <div className="flex-1 flex flex-col overflow-y-auto">
+    <div className="flex-1 w-full flex flex-col overflow-y-auto px-2 sm:px-0">
       <header className="h-12 flex items-center px-4 border-b border-slate-800">
         <h1 className="text-base font-semibold mr-4">Contacts</h1>
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search contacts..."
-          className="bg-slate-800 border border-slate-600 rounded px-2 py-1 text-sm flex-1 max-w-xs"
+          className="bg-slate-800 border border-slate-600 rounded px-2 py-2 text-sm flex-1 w-full sm:max-w-xs"
         />
       </header>
 

@@ -27,7 +27,7 @@ function UsersListPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-900 text-slate-100 p-6">
+    <div className="min-h-screen bg-slate-900 text-slate-100 p-3 sm:p-6">
       <h1 className="text-2xl font-semibold mb-4">All Users</h1>
 
       {loading && <p className="text-sm text-slate-400 mb-4">Loading users...</p>}

@@ -26,7 +26,7 @@ function UserSearchPage() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-slate-900 text-slate-100 flex flex-col items-center pt-16 overflow-x-hidden">
+    <div className="min-h-screen w-full bg-slate-900 text-slate-100 flex flex-col items-center pt-12 sm:pt-16 px-3 sm:px-0 overflow-x-hidden">
       <h1 className="text-2xl font-semibold mb-6">Search Users</h1>
 
       <form

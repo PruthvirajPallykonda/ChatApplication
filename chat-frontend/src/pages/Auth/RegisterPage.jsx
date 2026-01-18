@@ -42,8 +42,8 @@ function RegisterPage() {
       }
     }
   return (
-    <div className='min-h-screen w-full flex items-center justify-center bg-slate-900 text-slate-100'>
-      <div className='w-full max-w-md bg-slate-800 rounded-xl shadow-lg p-8'>
+    <div className="min-h-screen w-full flex items-center justify-center bg-slate-900 text-slate-100 px-3 sm:px-6">
+      <div className="w-full max-w-sm sm:max-w-md bg-slate-800 rounded-xl shadow-lg p-6 sm:p-8">
         <h1 className="text-2xl font-semibold mb-6 text-center">Register</h1>
         {
           error && (

@@ -45,7 +45,7 @@ function ChatRoomsPage() {
   return (
     <div className="flex-1 flex overflow-hidden">
       {/* Left: rooms list */}
-      <aside className="w-full sm:w-80 border-r border-slate-800 bg-slate-900 flex flex-col">
+      <aside className="w-full sm:w-72 lg:w-80 border-r border-slate-800 bg-slate-900 flex flex-col">
         <header className="h-14 flex items-center px-4 border-b border-slate-800">
           <h1 className="text-lg font-semibold">Chat Rooms</h1>
         </header>

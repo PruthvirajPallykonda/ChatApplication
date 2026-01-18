@@ -28,17 +28,14 @@ function UserCard({ user }) {
   };
 
   return (
-    <div className="flex items-center justify-between rounded-lg border border-slate-700 bg-slate-800 px-4 py-3 mb-2">
+    <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 rounded-lg border border-slate-700 bg-slate-800 px-3 sm:px-4 py-2 sm:py-3 mb-2">
       <div>
         <p className="font-medium">{user.username}</p>
         <p className="text-xs text-slate-400">{user.phoneNumber}</p>
       </div>
 
       {currentUser && currentUser.userId !== user.userId && (
-        <button
-          onClick={handleStartChat}
-          className="px-3 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-medium"
-        >
+        <button className="px-3 py-2 sm:py-1 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-medium whitespace-nowrap">
           Chat
         </button>
       )}

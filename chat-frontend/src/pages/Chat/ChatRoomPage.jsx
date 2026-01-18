@@ -145,7 +145,7 @@ function ChatRoomPage() {
   };
 
   return (
-    <div className="h-screen w-full bg-slate-900 text-slate-100 flex flex-col overflow-hidden">
+    <div className="min-h-screen w-full bg-slate-900 text-slate-100 flex flex-col overflow-hidden">
       <header className="h-14 flex items-center px-4 border-b border-slate-800 bg-slate-900 sticky top-0 z-50">
         {editingName ? (
           <div className="flex items-center gap-2">
@@ -181,7 +181,7 @@ function ChatRoomPage() {
       </header>
 
       <main className="flex-1 flex flex-col overflow-hidden">
-        <div className="flex-1 overflow-y-auto overflow-x-hidden px-2 pb-28">
+        <div className="flex-1 overflow-y-auto overflow-x-hidden px-2 sm:px-4 pb-32">
           {loading ? (
             <div className="flex h-full items-center justify-center">
               <p className="text-sm text-slate-400">Loading messages...</p>
@@ -202,7 +202,7 @@ function ChatRoomPage() {
           )}
         </div>
 
-        <div className="sticky bottom-0 bg-slate-900 border-t border-slate-800 p-3 z-50">
+        <div className="sticky bottom-0 bg-slate-900 border-t border-slate-800 p-2 sm:p-3 z-50">
           <MessageInput
             text={text}
             setText={setText}

@@ -8,12 +8,11 @@ using chat_backend.Services.Implementations;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// DbContext
+// ---------------- DB ----------------
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(
-        builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// JWT settings
+// ---------------- JWT ----------------
 var jwtSettings = builder.Configuration.GetSection("Jwt");
 var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]!);
 
@@ -21,7 +20,7 @@ builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
-        options.RequireHttpsMetadata = false;
+        options.RequireHttpsMetadata = false; // Railway terminates HTTPS itself
         options.SaveToken = true;
         options.TokenValidationParameters = new TokenValidationParameters
         {
@@ -36,37 +35,35 @@ builder.Services
     });
 
 builder.Services.AddAuthorization();
-
 builder.Services.AddScoped<IAuthService, AuthService>();
 
-// MVC + Swagger
+// ---------------- MVC & Swagger ----------------
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// ---- CORS CONFIG ----
+// ---------------- CORS ----------------
 const string corsPolicyName = "Frontend";
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: corsPolicyName, policy =>
+    options.AddPolicy(corsPolicyName, policy =>
     {
-        policy.WithOrigins(
+        policy
+            .WithOrigins(
                 "http://localhost:5173",
-                "https://pruthvirajpallykonda.github.io",
-                "https://chatapplication-production-48d0.up.railway.app"
+                "https://pruthvirajpallykonda.github.io"
             )
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials();
-            
     });
 });
 
-// ---- BUILD APP ----
+// ---------------- BUILD ----------------
 var app = builder.Build();
 
-// Pipeline
+// ---------------- PIPELINE ----------------
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -75,14 +72,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// CORS must be before auth/authorization and called once
+// VERY IMPORTANT: CORS must be here
 app.UseCors(corsPolicyName);
-
-app.UseStaticFiles();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
 app.Run();

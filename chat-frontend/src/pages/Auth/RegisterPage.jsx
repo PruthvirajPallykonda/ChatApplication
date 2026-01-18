@@ -20,7 +20,7 @@ function RegisterPage() {
     setSuccess('');
     setLoading(true);
     try {
-      const response = await client.post("/api/auth/register", {
+      const response = await client.post("/auth/register", {
         phoneNumber,
         password,
         username

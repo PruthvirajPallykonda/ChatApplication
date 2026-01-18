@@ -1,11 +1,11 @@
 import client from "./client";
 
 export const getAllUsersApi = () => {
-    client.get("/api/users/getallusers");
+    client.get("/users/getallusers");
 }
 
 export const searchUsersApi = (query) => {
-    client.get("/api/users/search", {
+    client.get("/users/search", {
         params: {query},
     });
 }

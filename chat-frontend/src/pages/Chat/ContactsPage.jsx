@@ -19,7 +19,7 @@ function ContactsPage() {
       setLoading(true);
       setError("");
       try {
-        const res = await client.get("/api/chat/contacts");
+        const res = await client.get("/chat/contacts");
         setContacts(res.data || []);
       } catch {
         setError("Failed to load contacts.");
@@ -42,7 +42,7 @@ function ContactsPage() {
   const handleStartNewChat = async (contactId) => {
     if (!currentUserId) return;
     try {
-      const res = await client.post("/api/chat/creatingchatroom", {
+      const res = await client.post("/chat/creatingchatroom", {
         user1Id: currentUserId,
         user2Id: contactId,
       });

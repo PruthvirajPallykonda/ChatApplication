@@ -14,7 +14,7 @@ function UserSearchPage() {
     setLoading(true);
 
     try {
-      const response = await client.get("/api/users/search", {
+      const response = await client.get("/users/search", {
         params: { query: searchTerm },
       });
       setUsers(response.data);

@@ -17,7 +17,7 @@ function ChatRoomsPage() {
     setLoading(true);
     setError("");
     try {
-      const res = await client.get("/api/chat/getall/chatrooms");
+      const res = await client.get("/chat/getall/chatrooms");
       setRooms(res.data || []);
     } catch {
       setError("Failed to load rooms.");

@@ -12,7 +12,7 @@ function UserCard({ user }) {
     if (!currentUser) return;
 
     try {
-      const response = await client.post("/api/chat/creatingchatroom", {
+      const response = await client.post("/chat/creatingchatroom", {
         user1Id: currentUser.userId,
         user2Id: user.userId,
       });

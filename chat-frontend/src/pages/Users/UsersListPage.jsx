@@ -13,7 +13,7 @@ function UsersListPage() {
       setError("");
       setLoading(true);
       try {
-        const res = await client.get("/api/users/getallusers");
+        const res = await client.get("/users/getallusers");
         setUsers(res.data || []);
       } catch (err) {
         console.error("Error fetching users:", err);

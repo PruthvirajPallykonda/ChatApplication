@@ -27,7 +27,7 @@ function App() {
         path="/chat"
         element={
           <ProtectedRoute>
-            <div className="h-screen w-screen overflow-hidden bg-slate-900 text-slate-100 flex flex-col">
+            <div className="h-screen w-full overflow-hidden bg-slate-900 text-slate-100 flex flex-col">
               <Navbar />
               <ChatRoomsPage />
             </div>
@@ -40,7 +40,7 @@ function App() {
         path="/chat/:roomId"
         element={
           <ProtectedRoute>
-            <div className="h-screen w-screen overflow-hidden bg-slate-900 text-slate-100 flex flex-col">
+            <div className="h-screen w-full overflow-hidden bg-slate-900 text-slate-100 flex flex-col">
               <Navbar />
               <ChatRoomPage />
             </div>
@@ -53,7 +53,7 @@ function App() {
         path="/users"
         element={
           <ProtectedRoute>
-            <div className="h-screen w-screen overflow-hidden bg-slate-900 text-slate-100 flex flex-col">
+            <div className="h-screen w-full overflow-hidden bg-slate-900 text-slate-100 flex flex-col">
               <Navbar />
               <UsersListPage />
             </div>
@@ -66,7 +66,7 @@ function App() {
         path="/users/search"
         element={
           <ProtectedRoute>
-            <div className="h-screen w-screen overflow-hidden bg-slate-900 text-slate-100 flex flex-col">
+            <div className="h-screen w-full overflow-hidden bg-slate-900 text-slate-100 flex flex-col">
               <Navbar />
               <UserSearchPage />
             </div>
@@ -79,7 +79,7 @@ function App() {
         path="/contacts"
         element={
           <ProtectedRoute>
-            <div className="h-screen w-screen overflow-hidden bg-slate-900 text-slate-100 flex flex-col">
+            <div className="h-screen w-full overflow-hidden bg-slate-900 text-slate-100 flex flex-col">
               <Navbar />
               <ContactsPage />
             </div>

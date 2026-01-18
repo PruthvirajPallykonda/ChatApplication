@@ -27,7 +27,7 @@ function MessageInput({ text, setText, sending, onSend, onSendFile, isEditing })
   return (
     <form
       onSubmit={handleSubmit}
-      className="relative w-full border-t border-slate-800 px-4 py-3 flex gap-2 items-center"
+      className="relative w-full border-t border-slate-800 px-4 py-3 flex gap-1 sm:gap-2 items-center"
     >
       <label className="flex items-center px-3 py-2 rounded-lg bg-slate-800 text-sm cursor-pointer">
         <span>📎</span>
@@ -58,7 +58,7 @@ function MessageInput({ text, setText, sending, onSend, onSendFile, isEditing })
       <button
         type="submit"
         disabled={sending}
-        className="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 disabled:opacity-60 disabled:cursor-not-allowed text-sm font-medium"
+        className="px-3 py-2 text-xs sm:text-sm rounded-lg bg-indigo-600 hover:bg-indigo-500 disabled:opacity-60 disabled:cursor-not-allowed text-sm font-medium"
       >
         {sending ? "Sending..." : isEditing ? "Save" : "Send"}
       </button>

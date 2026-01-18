@@ -12,7 +12,7 @@ function Navbar() {
     };
     
   return (
-    <nav className=" w-screen bg-slate-900 border-b border-slate-800 h-14 flex items-center px-4 justify-between">
+    <nav className=" w-full bg-slate-900 flex-wrap border-b border-slate-800 h-14 flex items-center px-4 justify-between">
     <div className="flex items-center gap-3">
     <span className="text-indigo-400 font-semibold">Chat App</span>
         <div className="hidden sm:flex gap-3 text-sm text-slate-300">

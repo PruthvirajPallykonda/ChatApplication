@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36717.8 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "chat-backend", "chat-backend\chat-backend.csproj", "{BB0319E3-2EB3-4D74-A3F5-D127B09E4218}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BB0319E3-2EB3-4D74-A3F5-D127B09E4218}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB0319E3-2EB3-4D74-A3F5-D127B09E4218}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB0319E3-2EB3-4D74-A3F5-D127B09E4218}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB0319E3-2EB3-4D74-A3F5-D127B09E4218}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5AC5C65A-8B71-4196-BB9A-8147DB3F2379}
+	EndGlobalSection
+EndGlobal

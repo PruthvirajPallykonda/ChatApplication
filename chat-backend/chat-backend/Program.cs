@@ -51,40 +51,59 @@ builder.Services.AddCors(options =>
     {
         policy
             .WithOrigins(
-                
-                "https://pruthvirajpallykonda.github.io",
-                "https://chatapplication-production-309d.up.railway.app"
+
+                "https://pruthvirajpallykonda.github.io"
+                //"https://chatapplication-production-309d.up.railway.app"
             )
             .AllowAnyHeader()
-            .AllowAnyMethod()
-            .AllowCredentials();
+            .AllowAnyMethod();
+            //.AllowCredentials();
     });
 });
 
-// ---------------- BUILD ----------------
+//// ---------------- BUILD ----------------
+//var app = builder.Build();
+
+//// ---------------- PIPELINE ----------------
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwagger();
+//    app.UseSwaggerUI();
+//}
+
+//if (!app.Environment.IsProduction())
+//{
+//    app.UseHttpsRedirection();
+//}
+
+////app.UseHttpsRedirection();
+
+//// VERY IMPORTANT: CORS must be here
+//app.UseCors(corsPolicyName);
+
+//app.UseAuthentication();
+//app.UseAuthorization();
+
+//app.MapControllers();
+//var port = Environment.GetEnvironmentVariable("PORT");
+//if (!string.IsNullOrEmpty(port))
+//{
+//    app.Urls.Add($"http://0.0.0.0:{port}");
+//}
+
+//app.Run();
+
 var app = builder.Build();
 
-// ---------------- PIPELINE ----------------
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseRouting();
 
-if (!app.Environment.IsProduction())
-{
-    app.UseHttpsRedirection();
-}
-
-//app.UseHttpsRedirection();
-
-// VERY IMPORTANT: CORS must be here
 app.UseCors(corsPolicyName);
 
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
 var port = Environment.GetEnvironmentVariable("PORT");
 if (!string.IsNullOrEmpty(port))
 {

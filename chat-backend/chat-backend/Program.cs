@@ -56,8 +56,8 @@ builder.Services.AddCors(options =>
                 //"https://chatapplication-production-309d.up.railway.app"
             )
             .AllowAnyHeader()
-            .AllowAnyMethod();
-            //.AllowCredentials();
+            .AllowAnyMethod()
+            .AllowCredentials();
     });
 });
 

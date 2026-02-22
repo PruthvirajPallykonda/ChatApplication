@@ -1,4 +1,3 @@
-// src/components/users/UserCard.jsx
 import { useNavigate } from "react-router-dom";
 import client from "../../api/client";
 
@@ -19,6 +18,12 @@ function UserCard({ user }) {
 
       const roomId =
         response.data.roomId ?? response.data.id ?? response.data.RoomId;
+        
+      if(!roomId)
+      {
+        alert("room creation failed");
+        return;
+      }
 
       navigate(`/chat/${roomId}`);
     } catch (err) {
@@ -35,7 +40,7 @@ function UserCard({ user }) {
       </div>
 
       {currentUser && currentUser.userId !== user.userId && (
-        <button className="px-3 py-2 sm:py-1 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-medium whitespace-nowrap">
+        <button onClick={handleStartChat} className="px-3 py-2 sm:py-1 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-medium whitespace-nowrap">
           Chat
         </button>
       )}

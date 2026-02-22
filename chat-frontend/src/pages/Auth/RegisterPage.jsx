@@ -2,6 +2,7 @@ import axios from 'axios'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import client from "../../api/client";
+import { Eye, EyeOff } from 'lucide-react';
 
 function RegisterPage() {
   
@@ -12,7 +13,11 @@ function RegisterPage() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
+  const togglePassword = () => {
+    setShowPassword(prev => !prev);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,6 +45,8 @@ function RegisterPage() {
       finally {
         setLoading(false);
       }
+
+
     }
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-slate-900 text-slate-100 px-3 sm:px-6">
@@ -68,8 +75,29 @@ function RegisterPage() {
           </div>
           <div>
             <label className='block text-sm mb-1'>Password</label>
-            <input type='password' value={password} onChange={(e)=>setPassword(e.target.value)}
-            className='w-full rounded-lg border border-slate-600 bg-slate-900 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500' placeholder='Enter password' required/>
+
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e)=>setPassword(e.target.value)}
+                className='w-full rounded-lg border border-slate-600 bg-slate-900 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500'
+                placeholder='Enter password'
+                required
+              />
+
+              <button
+                type='button'
+                onClick={togglePassword}
+                className='absolute inset-y-0 right-3 flex items-center p-1 text-slate-400 hover:text-slate-200'
+              >
+                {showPassword ? (
+                  <EyeOff className='w-5 h-5' />
+                ) : (
+                  <Eye className='w-5 h-5'/>
+                )}
+              </button>
+            </div>
           </div>
           <button type='submit' disabled={loading} className='w-full rounded-lg bg-indigo-600 hover:bg-indigo-500 disabled:opacity-60 disabled:cursor-not-allowed transition-colors px-4 py-2 text-sm font-medium'>{loading ? 'Creating account...' : 'Register'}</button>
           <div className="mt-4 text-center text-sm text-slate-300"> <span>Already Registered ? </span> <Link to="/login" className="text-indigo-400 hover:text-indigo-300 font-medium"> Sign In </Link> </div>
